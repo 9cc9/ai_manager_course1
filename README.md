@@ -16,9 +16,13 @@
 1. 目录结构
    - src/main/java
      - controller：web层控制器文件
-     - service: 领域层服务
-     - model：领域模型
-     - base
+     - biz: 业务层
+       - service:业务层服务
+       - dto：业务对象
+     - core：领域层
+       - service: 领域层服务
+       - model：领域模型
+     - base：基础层
        - mapper: ibatis数据表映射文件
        - entity：数据层模型
      - util：工具类（日志、错误码、异常等）
