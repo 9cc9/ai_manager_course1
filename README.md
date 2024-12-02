@@ -17,10 +17,10 @@
    - src/main/java
      - controller：web层控制器文件
      - biz: 业务层
-       - service:业务层服务
+       - manager:业务层服务，组装领域服务
        - dto：业务对象
      - core：领域层
-       - service: 领域层服务
+       - service: 领域层服务，对核心服务能力的抽象
        - model：领域模型
      - base：基础层
        - mapper: ibatis数据表映射文件
