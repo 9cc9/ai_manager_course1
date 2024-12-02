@@ -50,7 +50,7 @@ spring:
     initialization-mode: always
     continue-on-error: true
     schema:
-#      - "classpath:db/schema.sql"
+      - "classpath:db/schema.sql"
     data:
 #      - "classpath:db/*.sql"
     hikari:
