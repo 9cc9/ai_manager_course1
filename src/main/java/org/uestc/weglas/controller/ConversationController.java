@@ -31,7 +31,6 @@ public class ConversationController {
     @PostMapping("/add.json")
     public BaseResult<Conversation> addConversation(@RequestBody Conversation conversation) {
 
-
         return BaseResult.success(null);
     }
 
