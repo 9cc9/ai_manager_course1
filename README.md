@@ -31,7 +31,3 @@
      - static:静态文件，js、css、logo等
      - templates：项目自己实现的前端页面
    - src/test/java 测试用例 
-2. 实现关键点
-    * mqtt发布订阅
-    * db读写
-    * http流式读取
