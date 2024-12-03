@@ -18,15 +18,17 @@
         <div class="col-md-9 d-flex flex-column" style="padding: 10px;">
             <h4 class="text-center">会话详情</h4>
             <div id="chatContainer">
-                <div th:each="chat : ${conversation.chatList}" class="d-flex mb-3"
-                     th:classappend="${chat.role == 'user' ? 'justify-content-end' : 'justify-content-start'}">
-                    <!-- 如果是 assistant 角色，添加头像 -->
-                    <div th:if="${chat.role == 'assistant'}" class="me-2">
-                        <i class="fa-solid fa-graduation-cap card-img-top fa-2x"></i>
-                    </div>
-                    <div class="card" style="max-width: 60%;">
-                        <div class="card-body">
-                            <p class="card-text" th:text="${chat.content}"></p>
+                <div th:if="${conversation != null}">
+                    <div th:each="chat : ${conversation.chatList}" class="d-flex mb-3"
+                         th:classappend="${chat.role == 'user' ? 'justify-content-end' : 'justify-content-start'}">
+                        <!-- 如果是 assistant 角色，添加头像 -->
+                        <div th:if="${chat.role == 'assistant'}" class="me-2">
+                            <i class="fa-solid fa-graduation-cap card-img-top fa-2x"></i>
+                        </div>
+                        <div class="card" style="max-width: 60%;">
+                            <div class="card-body">
+                                <p class="card-text" th:text="${chat.content}"></p>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -18,6 +18,6 @@ public class HomeController {
     @GetMapping("/conversations/detail")
     public String conversationDetail(@RequestParam Integer conversationId, Model model) {
 
-        return "conversations/detail_with_stream_chat";
+        return "conversations/detail";
     }
 }
