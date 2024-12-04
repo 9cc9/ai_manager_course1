@@ -36,15 +36,6 @@ public interface ConversationService {
      */
     List<Conversation> queryAll();
 
-
-    /**
-     * 删除会话
-     *
-     * @param conversationId
-     * @return 操作结果
-     */
-    void remove(Integer conversationId);
-
     /**
      * 新增聊天
      *

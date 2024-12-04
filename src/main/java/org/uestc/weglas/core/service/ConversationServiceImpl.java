@@ -4,8 +4,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.uestc.weglas.base.entity.ConversationChatDetailEntity;
+import org.uestc.weglas.base.entity.ConversationEntity;
 import org.uestc.weglas.base.mapper.ConversationChatDetailMapper;
 import org.uestc.weglas.base.mapper.ConversationMapper;
+import org.uestc.weglas.core.builder.ConversationChatBuilder;
+import org.uestc.weglas.core.converter.ConversationChatDetailConverter;
+import org.uestc.weglas.core.converter.ConversationConverter;
 import org.uestc.weglas.core.model.Conversation;
 import org.uestc.weglas.core.model.ConversationChatDetail;
 
@@ -38,6 +43,15 @@ public class ConversationServiceImpl implements ConversationService {
     @Override
     @Transactional
     public void add(Conversation conversation) {
+        ConversationEntity entity = ConversationConverter.convert(conversation);
+        conversationMapper.insert(entity);
+        // 设置db返回的主键id
+        conversation.setId(entity.getId());
+
+        ConversationChatDetail userChat = ConversationChatBuilder.buildDefaultChat(conversation);
+        ConversationChatDetailEntity chatEntity = ConversationChatDetailConverter.convert(userChat);
+        conversationChatDetailMapper.insert(chatEntity);
+        userChat.setId(chatEntity.getId());
     }
 
     /**
@@ -47,11 +61,19 @@ public class ConversationServiceImpl implements ConversationService {
      */
     @Override
     public Conversation queryById(Integer conversationId) {
-        return null;
+        ConversationEntity conversationEntity = conversationMapper.selectById(conversationId);
+        Conversation basicConversation = ConversationConverter.convert(conversationEntity);
+
+        List<ConversationChatDetailEntity> chatDetailEntities = conversationChatDetailMapper.selectByConversationId(conversationId);
+        List<ConversationChatDetail> chatList = ConversationChatDetailConverter.convert(chatDetailEntities);
+
+        basicConversation.setChatList(chatList);
+
+        return basicConversation;
     }
 
     /**
-     * 会话记录列表查询
+     * TODO 会话记录列表查询
      * @return
      */
     @Override
@@ -60,15 +82,7 @@ public class ConversationServiceImpl implements ConversationService {
     }
 
     /**
-     * 删除会话
-     * @param conversationId
-     */
-    @Override
-    public void remove(Integer conversationId) {
-    }
-
-    /**
-     * 新建一条chat_detail记录
+     * TODO 新建一条chat_detail记录
      * @param chat 会话id
      */
     @Override
@@ -77,7 +91,7 @@ public class ConversationServiceImpl implements ConversationService {
     }
 
     /**
-     * 删除一条chat_detail记录
+     * TODO 删除一条chat_detail记录
      * @param chatId
      */
     @Override
